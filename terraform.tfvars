@@ -1,0 +1,9 @@
+environment     = "Development"
+region_name     = "us-east-1"
+vpc_name        = "testing"
+sn_cidr_public  = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+sn_az_public    = ["us-east-1a", "us-east-1b", "us-east-1c"]
+sn_cidr_private = ["10.0.10.0/24", "10.0.20.0/24", "10.0.30.0/24"]
+sn_az_private   = ["us-east-1a", "us-east-1b", "us-east-1c"]
+# test_sg         = "test_sg"
+ingress_service = ["22", "443", "80", "8080"]
