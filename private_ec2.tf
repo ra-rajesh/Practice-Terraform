@@ -10,6 +10,11 @@ resource "aws_instance" "private_instance" {
     volume_size           = 8
     delete_on_termination = true
   }
+  lifecycle {
+    create_before_destroy = true
+    # prevent_destroy = true
+  }
+
   user_data = <<-EOF
               #!/bin/bash
               # Update and install Nginx
