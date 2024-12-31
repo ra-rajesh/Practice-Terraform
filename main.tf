@@ -4,6 +4,16 @@ provider "aws" {
   region = var.region_name
 }
 
+# # Configure the AWS S3 under rajesh_rajendiran
+# terraform {
+#   backend "s3" {
+#     bucket = "vpc-s3-task"
+#     key    = "base-file"
+#     region = "us-east-1"
+#   }
+# }
+
+
 # Create a VPC
 resource "aws_vpc" "testing" {
   cidr_block           = "10.0.0.0/16"
