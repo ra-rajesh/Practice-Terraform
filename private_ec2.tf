@@ -1,32 +1,15 @@
-# #  EC2 Instance in Private Subnet
-# resource "aws_instance" "private_instance" {
-#   ami             = "ami-0c02fb55956c7d316" # Amazon Linux 2 (replace with a valid AMI for your region)
-#   instance_type   = "t2.micro"
-#   subnet_id       = aws_subnet.private_subnet[0].id
-#   security_groups = [aws_security_group.test_sg.id]
-
-#   tags = {
-#     Name        = "${var.vpc_name}-private-instance"
-#     Owner       = local.Owner
-#     costcenter  = local.costcenter
-#     TeamDL      = local.TeamDL
-#     environment = var.environment
-#   }
-# }
-
-# EC2 Instance in Public Subnet
-resource "aws_instance" "public_instance" {
-  ami                         = "ami-005fc0f236362e99f"
+#  EC2 Instance in Private Subnet
+resource "aws_instance" "private_instance" {
+  ami                         = "ami-0c02fb55956c7d316" # Amazon Linux 2 (replace with a valid AMI for your region)
   instance_type               = "t2.micro"
-  subnet_id                   = aws_subnet.public_subnet[0].id
+  subnet_id                   = aws_subnet.private_subnet[0].id
   security_groups             = [aws_security_group.test_sg.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   root_block_device {
     volume_type           = "gp2"
     volume_size           = 8
     delete_on_termination = true
   }
-
   user_data = <<-EOF
               #!/bin/bash
               # Update and install Nginx
@@ -43,15 +26,15 @@ resource "aws_instance" "public_instance" {
               
               # Create a custom index.html with the server name
               echo "<html>
-              <head><title>Welcome to "${var.vpc_name}-public-instance"</title></head>
+              <head><title>Welcome to "${var.vpc_name}-private-instance"</title></head>
               <body>
-              <h1>Server Name: "${var.vpc_name}-public-instance"</h1>
+              <h1>Server Name: "${var.vpc_name}-private-instance"</h1>
               </body>
               </html>" > /usr/share/nginx/html/index.html
               EOF
 
   tags = {
-    Name        = "${var.vpc_name}-public-instance"
+    Name        = "${var.vpc_name}-private-instance"
     Owner       = local.Owner
     costcenter  = local.costcenter
     TeamDL      = local.TeamDL

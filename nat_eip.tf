@@ -9,6 +9,7 @@ resource "aws_eip" "nat_eip" {
     TeamDL      = local.TeamDL
     environment = var.environment
   }
+  depends_on = [aws_instance.private_instance]
 }
 
 # Create NAT Gateway in a Public Subnet
@@ -23,5 +24,6 @@ resource "aws_nat_gateway" "nat" {
     TeamDL      = local.TeamDL
     environment = var.environment
   }
+  depends_on = [aws_instance.private_instance]
 }
 
